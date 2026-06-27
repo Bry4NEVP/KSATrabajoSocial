@@ -60,7 +60,7 @@ export default function Footer() {
           <h5 className="text-white font-bold mb-6">Redes Sociales</h5>
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://ksa-trabajo-social.vercel.app/"
               className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-tertiary-fixed hover:text-primary transition-colors"
               aria-label="Sitio web"
             >
@@ -72,6 +72,17 @@ export default function Footer() {
               aria-label="Email"
             >
               <span className="material-symbols-outlined">mail</span>
+            </a>
+            <a
+              href="https://www.instagram.com/trabajadorasocial.col/"
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-tertiary-fixed hover:text-primary transition-colors"
+              aria-label="Instagram"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
             </a>
           </div>
         </div>

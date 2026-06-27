@@ -85,7 +85,7 @@ export default function Home() {
           </div>
 
           {/* Floating Cards */}
-          <div className="absolute -left-6 top-1/4 glass-card p-5 rounded-card soft-shadow flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
+          <div className="hidden md:flex absolute -left-6 top-1/4 glass-card p-5 rounded-card soft-shadow items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
             <div className="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-white">
               <span className="material-symbols-outlined">group</span>
             </div>
@@ -95,7 +95,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="absolute -right-4 bottom-1/4 glass-card p-5 rounded-card soft-shadow flex items-center gap-4 animate-pulse">
+          <div className="hidden md:flex absolute -right-4 bottom-1/4 glass-card p-5 rounded-card soft-shadow items-center gap-4 animate-pulse">
             <div className="w-12 h-12 rounded-full bg-tertiary flex items-center justify-center text-white">
               <span className="material-symbols-outlined">diversity_3</span>
             </div>
@@ -105,7 +105,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="absolute left-1/4 -bottom-6 glass-card p-5 rounded-card soft-shadow flex items-center gap-4">
+          <div className="hidden md:flex absolute left-1/4 -bottom-6 glass-card p-5 rounded-card soft-shadow items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
               <span className="material-symbols-outlined">public</span>
             </div>

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { submitContactForm } from '../lib/contactApi';
 
 export default function Home() {
-  const navigate = useNavigate();
+  const [contactStatus, setContactStatus] = useState({ type: 'idle', message: '' });
 
   useEffect(() => {
     // Scroll animation effect on load/scroll
@@ -30,10 +31,18 @@ export default function Home() {
     };
   }, []);
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
-    alert('¡Gracias por tu mensaje! Elena se pondrá en contacto contigo pronto.');
-    e.target.reset();
+    const form = e.currentTarget;
+    setContactStatus({ type: 'loading', message: 'Enviando tu solicitud...' });
+
+    try {
+      await submitContactForm(form, 'home');
+      setContactStatus({ type: 'success', message: 'Gracias por tu mensaje. Te contactaremos pronto.' });
+      form.reset();
+    } catch (error) {
+      setContactStatus({ type: 'error', message: error.message });
+    }
   };
 
   return (
@@ -184,7 +193,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {/* Service Card 1 */}
-            <div className="animate-on-scroll bg-white p-8 rounded-card soft-shadow hover:bg-primary hover:text-white transition-all duration-300 group">
+            <div className="animate-on-scroll bg-white p-8 rounded-[32px] soft-shadow hover:bg-primary hover:text-white transition-all duration-300 group">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 group-hover:bg-white/20 flex items-center justify-center text-primary group-hover:text-white mb-8 transition-colors">
                 <span className="material-symbols-outlined text-4xl">home</span>
               </div>
@@ -197,7 +206,7 @@ export default function Home() {
             </div>
 
             {/* Service Card 2 (Large) */}
-            <div className="animate-on-scroll bg-primary text-white p-8 rounded-card soft-shadow md:col-span-1 md:row-span-2 flex flex-col justify-between">
+            <div className="animate-on-scroll bg-primary text-white p-8 rounded-[32px] soft-shadow md:col-span-1 md:row-span-2 flex flex-col justify-between">
               <div>
                 <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-white mb-8">
                   <span className="material-symbols-outlined text-4xl">psychology</span>
@@ -219,7 +228,7 @@ export default function Home() {
             </div>
 
             {/* Service Card 3 */}
-            <div className="animate-on-scroll bg-white p-8 rounded-card soft-shadow hover:bg-tertiary hover:text-white transition-all duration-300 group">
+            <div className="animate-on-scroll bg-white p-8 rounded-[32px] soft-shadow hover:bg-tertiary hover:text-white transition-all duration-300 group">
               <div className="w-16 h-16 rounded-2xl bg-tertiary/10 group-hover:bg-white/20 flex items-center justify-center text-tertiary group-hover:text-white mb-8 transition-colors">
                 <span className="material-symbols-outlined text-4xl">school</span>
               </div>
@@ -232,7 +241,7 @@ export default function Home() {
             </div>
 
             {/* Service Card 4 */}
-            <div className="animate-on-scroll bg-white p-8 rounded-card soft-shadow hover:bg-secondary hover:text-white transition-all duration-300 group">
+            <div className="animate-on-scroll bg-white p-8 rounded-[32px] soft-shadow hover:bg-secondary hover:text-white transition-all duration-300 group">
               <div className="w-16 h-16 rounded-2xl bg-secondary/10 group-hover:bg-white/20 flex items-center justify-center text-secondary group-hover:text-white mb-8 transition-colors">
                 <span className="material-symbols-outlined text-4xl">groups</span>
               </div>
@@ -241,7 +250,7 @@ export default function Home() {
             </div>
 
             {/* Service Card 5 */}
-            <div className="animate-on-scroll bg-surface-container-high p-8 rounded-card soft-shadow flex flex-col justify-center items-center text-center">
+            <div className="animate-on-scroll bg-surface-container-high p-8 rounded-[32px] soft-shadow flex flex-col justify-center items-center text-center">
               <h3 className="font-headline-md text-headline-md mb-4 text-primary">¿Necesitas algo específico?</h3>
               <p className="font-body-md text-on-surface-variant mb-6">Diseñamos intervenciones a medida según cada realidad social.</p>
               <Link
@@ -260,7 +269,7 @@ export default function Home() {
         <h2 className="font-headline-lg text-headline-lg text-center mb-16">Metodología de Trabajo</h2>
         <div className="relative">
           {/* Horizontal line */}
-          <div className="absolute top-1/2 left-0 w-full h-1 bg-primary-fixed -translate-y-1/2 hidden md:block"></div>
+          <div className="absolute top-8 left-0 w-full h-1 bg-primary-fixed -translate-y-1/2 hidden md:block"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter relative">
             {/* Step 1 */}
@@ -341,66 +350,131 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="bg-primary rounded-[40px] p-8 md:p-20 text-white overflow-hidden relative">
-          {/* Decorative circles */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/5 rounded-full"></div>
-          <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-tertiary/20 rounded-full"></div>
-
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-display-hero-mobile md:font-headline-lg text-display-hero-mobile md:text-headline-lg mb-6 text-white">¿Damos el primer paso juntos?</h2>
-              <p className="font-body-lg text-body-lg text-white/80 mb-10">
-                Cada historia merece ser escuchada. Si buscas acompañamiento profesional para ti, tu familia o tu organización, estoy aquí para ayudar.
+      {/* Contact Section */}
+      <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="contacto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="bg-white rounded-[24px] p-8 shadow-sm border border-outline-variant/20 flex-grow">
+              <h2 className="font-headline-lg text-headline-lg text-on-surface mb-8">Hablemos</h2>
+              <p className="text-on-surface-variant font-body-md text-body-md mb-10">
+                Estoy aqui para escucharte. Ya sea una consulta profesional o una solicitud de asesoria tecnica, respondere en menos de 24 horas.
               </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined">mail</span>
-                  <span>contacto@elenamarin.es</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined">location_on</span>
-                  <span>C/ Libertad 12, Planta 3 - Madrid</span>
-                </div>
-              </div>
-            </div>
+              <ul className="space-y-8">
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary bg-primary-fixed/30 p-3 rounded-full">call</span>
+                  <div>
+                    <p className="font-label-caps text-label-caps text-on-surface-variant">TELEFONO</p>
+                    <p className="font-headline-md text-on-surface text-lg">+34 600 000 000</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary bg-primary-fixed/30 p-3 rounded-full">mail</span>
+                  <div>
+                    <p className="font-label-caps text-label-caps text-on-surface-variant">EMAIL</p>
+                    <p className="font-headline-md text-on-surface text-lg">hola@elenamarin.social</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary bg-primary-fixed/30 p-3 rounded-full">location_on</span>
+                  <div>
+                    <p className="font-label-caps text-label-caps text-on-surface-variant">UBICACION</p>
+                    <p className="font-headline-md text-on-surface text-lg">Barranquilla, Colombia</p>
+                  </div>
+                </li>
+              </ul>
 
-            <div className="bg-white rounded-card p-8 text-on-surface">
-              <form className="space-y-6" onSubmit={handleContactSubmit}>
-                <div>
-                  <label className="block font-body-md font-bold mb-2">Nombre completo</label>
-                  <input
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                    placeholder="Tu nombre..."
-                    type="text"
-                  />
+              <a
+                className="mt-12 flex items-center justify-center gap-3 w-full py-4 bg-[#25D366] text-white rounded-[16px] font-button text-button hover:opacity-90 transition-all shadow-md cursor-pointer"
+                href="https://wa.me/34600000000"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="material-symbols-outlined">chat</span> Escribeme por WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div className="lg:col-span-8">
+            <div className="bg-white rounded-[24px] p-8 md:p-12 shadow-sm border border-outline-variant/20">
+              <form className="space-y-8" onSubmit={handleContactSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="font-body-md font-bold text-on-surface" htmlFor="home-name">Nombre completo</label>
+                    <input
+                      required
+                      className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50 text-on-surface"
+                      id="home-name"
+                      name="name"
+                      placeholder="Ej. Ana Garcia"
+                      type="text"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="font-body-md font-bold text-on-surface" htmlFor="home-email">Correo electronico</label>
+                    <input
+                      required
+                      className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50 text-on-surface"
+                      id="home-email"
+                      name="email"
+                      placeholder="ana@ejemplo.com"
+                      type="email"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block font-body-md font-bold mb-2">Correo electrónico</label>
-                  <input
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                    placeholder="tu@email.com"
-                    type="email"
-                  />
+
+                <div className="space-y-2">
+                  <label className="font-body-md font-bold text-on-surface" htmlFor="home-subject">Sobre que te gustaria recibir orientacion?</label>
+                  <select
+                    className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all cursor-pointer text-on-surface"
+                    id="home-subject"
+                    name="inquiryType"
+                  >
+                    <option value="orientacion-familiar">Orientacion familiar</option>
+                    <option value="apoyo-psicosocial">Apoyo psicosocial</option>
+                    <option value="desarrollo-comunitario">Desarrollo comunitario</option>
+                    <option value="capacitacion">Capacitacion</option>
+                    <option value="consulta-profesional">Consulta profesional</option>
+                    <option value="otro">Otro</option>
+                  </select>
                 </div>
-                <div>
-                  <label className="block font-body-md font-bold mb-2">Mensaje</label>
+
+                <div className="space-y-2">
+                  <label className="font-body-md font-bold text-on-surface" htmlFor="home-message">Tu mensaje</label>
                   <textarea
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
-                    placeholder="Cuéntame brevemente tu situación..."
-                    rows="4"
+                    className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50 resize-none text-on-surface"
+                    id="home-message"
+                    name="message"
+                    placeholder="En que puedo ayudarte hoy?"
+                    rows={5}
                   />
                 </div>
+
+                <div className="flex items-center gap-3">
+                  <input
+                    required
+                    className="rounded border-[#A5AD97] text-primary focus:ring-primary h-4 w-4"
+                    id="home-privacy"
+                    name="privacyAccepted"
+                    type="checkbox"
+                  />
+                  <label className="text-sm text-on-surface-variant" htmlFor="home-privacy">
+                    Acepto la <a className="underline hover:text-primary" href="#" onClick={(e) => { e.preventDefault(); alert('Politica de Privacidad...'); }}>politica de privacidad</a> y el tratamiento de mis datos.
+                  </label>
+                </div>
+
                 <button
-                  className="w-full cta-terracotta text-white py-4 rounded-full font-button shadow-md cursor-pointer"
+                  className="w-full md:w-auto px-12 py-4 bg-[#D89B5C] text-white rounded-[16px] font-button text-button hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:cursor-not-allowed disabled:opacity-70"
+                  disabled={contactStatus.type === 'loading'}
                   type="submit"
                 >
-                  Enviar solicitud
+                  {contactStatus.type === 'loading' ? 'Enviando...' : 'Enviar mensaje'} <span className="material-symbols-outlined">send</span>
                 </button>
+                {contactStatus.message && (
+                  <p className={`font-body-md text-body-md ${contactStatus.type === 'error' ? 'text-error' : 'text-primary'}`}>
+                    {contactStatus.message}
+                  </p>
+                )}
               </form>
             </div>
           </div>

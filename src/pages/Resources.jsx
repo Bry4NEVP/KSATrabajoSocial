@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { submitContactForm } from '../lib/contactApi';
 
 export default function Resources() {
   const [activeFilter, setActiveFilter] = useState('Todos');
   const [emailSub, setEmailSub] = useState('');
+  const [contactStatus, setContactStatus] = useState({ type: 'idle', message: '' });
   
   useEffect(() => {
     // Scroll animation effect
@@ -29,10 +31,18 @@ export default function Resources() {
     };
   }, [activeFilter]);
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
-    alert('¡Gracias por tu mensaje! Elena se pondrá en contacto contigo pronto.');
-    e.target.reset();
+    const form = e.currentTarget;
+    setContactStatus({ type: 'loading', message: 'Enviando tu solicitud...' });
+
+    try {
+      await submitContactForm(form, 'recursos');
+      setContactStatus({ type: 'success', message: 'Gracias por tu mensaje. Te contactaremos pronto.' });
+      form.reset();
+    } catch (error) {
+      setContactStatus({ type: 'error', message: error.message });
+    }
   };
 
   const handleSubscribeSubmit = (e) => {
@@ -318,15 +328,18 @@ export default function Resources() {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="font-body-md font-bold text-on-surface" htmlFor="subject">Asunto</label>
+                  <label className="font-body-md font-bold text-on-surface" htmlFor="subject">Sobre que te gustaria recibir orientacion?</label>
                   <select 
                     className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all cursor-pointer text-on-surface" 
                     id="subject"
+                    name="inquiryType"
                   >
-                    <option value="general">Consulta General</option>
-                    <option value="asesoria">Solicitud de Asesoría</option>
-                    <option value="colaboracion">Colaboración Profesional</option>
-                    <option value="recursos">Duda sobre Recursos</option>
+                    <option value="orientacion-familiar">Orientacion familiar</option>
+                    <option value="apoyo-psicosocial">Apoyo psicosocial</option>
+                    <option value="desarrollo-comunitario">Desarrollo comunitario</option>
+                    <option value="capacitacion">Capacitacion</option>
+                    <option value="consulta-profesional">Consulta profesional</option>
+                    <option value="otro">Otro</option>
                   </select>
                 </div>
                 
@@ -336,6 +349,7 @@ export default function Resources() {
                     required
                     className="w-full px-5 py-4 bg-[#EBE8E0] border border-[#A5AD97] rounded-[16px] focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50 resize-none text-on-surface" 
                     id="message" 
+                    name="message"
                     placeholder="¿En qué puedo ayudarte hoy?" 
                     rows={5}
                   />
@@ -346,6 +360,7 @@ export default function Resources() {
                     required
                     className="rounded border-[#A5AD97] text-primary focus:ring-primary h-4 w-4" 
                     id="privacy" 
+                    name="privacyAccepted"
                     type="checkbox"
                   />
                   <label className="text-sm text-on-surface-variant" htmlFor="privacy">
@@ -354,11 +369,17 @@ export default function Resources() {
                 </div>
                 
                 <button 
-                  className="w-full md:w-auto px-12 py-4 bg-[#D89B5C] text-white rounded-[16px] font-button text-button hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md" 
+                  className="w-full md:w-auto px-12 py-4 bg-[#D89B5C] text-white rounded-[16px] font-button text-button hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:cursor-not-allowed disabled:opacity-70" 
+                  disabled={contactStatus.type === 'loading'}
                   type="submit"
                 >
-                  Enviar mensaje <span className="material-symbols-outlined">send</span>
+                  {contactStatus.type === 'loading' ? 'Enviando...' : 'Enviar mensaje'} <span className="material-symbols-outlined">send</span>
                 </button>
+                {contactStatus.message && (
+                  <p className={`font-body-md text-body-md ${contactStatus.type === 'error' ? 'text-error' : 'text-primary'}`}>
+                    {contactStatus.message}
+                  </p>
+                )}
               </form>
             </div>
           </div>

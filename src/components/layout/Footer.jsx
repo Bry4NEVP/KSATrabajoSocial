@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="md:col-span-1">
           <div className="font-headline-md text-headline-md text-on-primary mb-6">KSA</div>
           <p className="font-body-md text-primary-fixed mb-8">
-            Trabajo Social con alma y rigor técnico para un futuro más justo.
+            Transformar realidades comienza por escuchar con respeto, comprender con empatía y actuar con compromiso.
           </p>
         </div>
         <div>

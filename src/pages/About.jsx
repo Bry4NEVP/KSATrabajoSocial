@@ -69,7 +69,11 @@ export default function About() {
             <h1 className="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-on-surface mb-8 leading-tight">keythnaren Sandoval Acuña</h1>
             <div className="space-y-6 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
               <p>
-                Mi camino en el Trabajo Social no fue una elección al azar, sino una respuesta a mi firme convicción de que todas las personas merecen ser escuchadas y acompañadas en sus procesos de vulnerabilidad.
+                Soy Keythnaren Sandoval Acuña, Trabajadora Social con
+                seis años de experiencia acompañando procesos de
+                intervención familiar, orientación psicosocial y desarrollo
+                comunitario, promoviendo el bienestar, la inclusión y la
+                dignidad humana mediante un acompañamiento ético y cercano.
               </p>
               <p>
                 A lo largo de más de 15 años de carrera, he navegado por contextos diversos—desde el apoyo directo a familias en crisis hasta la consultoría estratégica para instituciones públicas. Mi enfoque no es simplemente resolver problemas, sino empoderar a los individuos para que recuperen su propia autonomía.

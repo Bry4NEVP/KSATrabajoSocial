@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
+    "nodemailer": "^9.0.1",
     "pdfkit": "^0.19.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

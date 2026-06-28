@@ -1,9 +1,11 @@
+import 'dotenv/config';
 import http from 'node:http';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { generateContactReport } from './reportGenerator.js';
+import { sendReportByEmail } from './emailSender.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -173,6 +175,13 @@ const server = http.createServer(async (req, res) => {
       submission.report = report;
 
       await saveSubmission(submission);
+
+      // Enviar PDF por correo (fallo silencioso para no interrumpir la respuesta)
+      try {
+        await sendReportByEmail(submission, report.path);
+      } catch (emailError) {
+        console.warn('[email] No se pudo enviar el correo:', emailError.message);
+      }
 
       return sendJson(res, 201, {
         ok: true,

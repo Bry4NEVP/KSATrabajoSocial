@@ -61,10 +61,10 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              to="/servicios"
+              to="/recursos"
               className="cta-terracotta text-white px-8 py-4 rounded-full font-button text-button shadow-lg text-center cursor-pointer"
             >
-              Ver mis servicios
+              Solicitar Asesoría
             </Link>
             <Link
               to="/sobre-mi"
@@ -121,7 +121,7 @@ export default function Home() {
       <section className="bg-surface-container-low py-16">
         <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
           <div className="flex flex-col items-center">
-            <span className="font-headline-lg text-headline-lg text-primary mb-2">15+</span>
+            <span className="font-headline-lg text-headline-lg text-primary mb-2">6+</span>
             <span className="font-label-caps text-label-caps text-on-surface-variant">Años de experiencia</span>
           </div>
           <div className="flex flex-col items-center">
@@ -151,26 +151,26 @@ export default function Home() {
               />
             </div>
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-primary rounded-full flex items-center justify-center p-8 text-white text-center font-bold text-lg leading-tight hidden md:flex">
-              Vocación por el cambio real
+              Escuchar  Comprender  Acompañar
             </div>
           </div>
           <div className="w-full md:w-1/2">
             <h2 className="font-headline-lg text-headline-lg text-on-surface mb-6">Mi Misión Profesional</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-6">
-              Entiendo el trabajo social no solo como una profesión, sino como un puente necesario entre la vulnerabilidad y la autonomía. Mi enfoque se centra en identificar las fortalezas latentes en cada individuo y grupo social.
+              Acompaño a las personas en sus procesos de cambio desde una mirada humana, ética y respetuosa. Creo que escuchar, comprender y trabajar en conjunto permite fortalecer capacidades, generar nuevas oportunidades y contribuir al bienestar de las familias y las comunidades.
             </p>
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                <p className="font-body-md text-on-surface"><span className="font-bold">Humanismo:</span> Trato cercano basado en la dignidad absoluta.</p>
+                <p className="font-body-md text-on-surface"><span className="font-bold">Empatía:</span> Escucha activa y acompañamiento respetuoso en cada proceso.</p>
               </div>
               <div className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                <p className="font-body-md text-on-surface"><span className="font-bold">Metodología:</span> Procesos técnicos rigurosos y evaluables.</p>
+                <p className="font-body-md text-on-surface"><span className="font-bold">Etica Profesional:</span>Intervenciones responsables, transparentes y centradas en la dignidad humana.</p>
               </div>
               <div className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                <p className="font-body-md text-on-surface"><span className="font-bold">Confidencialidad:</span> Seguridad absoluta en el manejo de la información.</p>
+                <p className="font-body-md text-on-surface"><span className="font-bold">Compromiso Social:</span> Trabajo orientado al fortalecimiento de personas, familias y comunidades.</p>
               </div>
             </div>
             <Link
